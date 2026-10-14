@@ -1,0 +1,35 @@
+@model IEnumerable<GLMS.Web.Models.Client>
+@{ ViewData["Title"] = "Clients"; }
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div><span class="text-uppercase small fw-bold text-primary">Directory</span><h1 class="h2 mb-1">Client management</h1><p class="text-muted mb-0">Add, find, view, and maintain client records.</p></div>
+    <a asp-action="Create" class="btn btn-primary">+ Add client</a>
+</div>
+@if (TempData["Success"] is string success) { <div class="alert alert-success">@success</div> }
+@if (TempData["Error"] is string error) { <div class="alert alert-danger">@error</div> }
+<div class="panel-card">
+    <form asp-action="Index" method="get" class="row g-2 mb-3">
+        <div class="col-md-9"><label for="searchString" class="visually-hidden">Search clients</label><input id="searchString" name="searchString" value="@ViewData["SearchString"]" class="form-control" placeholder="Search by client name, contact details, or region" /></div>
+        <div class="col-md-3 d-flex gap-2"><button type="submit" class="btn btn-outline-primary flex-fill">Search</button><a asp-action="Index" class="btn btn-outline-secondary">Clear</a></div>
+    </form>
+    @if (!Model.Any())
+    {
+        <div class="empty-state text-center"><h2 class="h5">No clients found</h2><p class="mb-3">Add a new client or change your search.</p><a asp-action="Create" class="btn btn-primary">Add your first client</a></div>
+    }
+    else
+    {
+        <div class="table-responsive"><table class="table align-middle">
+            <thead><tr><th>Client</th><th>Contact details</th><th>Region</th><th>Contracts</th><th class="text-end">Actions</th></tr></thead>
+            <tbody>
+            @foreach (var client in Model)
+            {
+                <tr>
+                    <td><strong>@client.Name</strong><div class="small text-muted">Client ID: @client.Id</div></td>
+                    <td>@client.ContactDetails</td><td>@client.Region</td><td><span class="status-pill">@client.Contracts.Count contract(s)</span></td>
+                    <td class="text-end text-nowrap"><a asp-action="Details" asp-route-id="@client.Id" class="btn btn-sm btn-outline-secondary">View</a> <a asp-action="Edit" asp-route-id="@client.Id" class="btn btn-sm btn-outline-primary">Edit</a> <a asp-action="Delete" asp-route-id="@client.Id" class="btn btn-sm btn-outline-danger">Delete</a></td>
+                </tr>
+            }
+            </tbody>
+        </table></div>
+    }
+</div>

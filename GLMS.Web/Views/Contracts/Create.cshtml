@@ -1,0 +1,27 @@
+@model GLMS.Web.Models.Contract
+@{ ViewData["Title"] = "New Contract"; }
+
+<h2>New Contract</h2>
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3"><label asp-for="ClientId" class="form-label"></label>
+        <select asp-for="ClientId" asp-items="ViewBag.Clients" class="form-select"></select></div>
+    <div class="mb-3"><label asp-for="StartDate" class="form-label"></label>
+        <input asp-for="StartDate" class="form-control" type="date" /></div>
+    <div class="mb-3"><label asp-for="EndDate" class="form-label"></label>
+        <input asp-for="EndDate" class="form-control" type="date" /></div>
+    <div class="mb-3"><label asp-for="Status" class="form-label"></label>
+        <select asp-for="Status" asp-items="Html.GetEnumSelectList<GLMS.Web.Models.ContractStatus>()" class="form-select"></select></div>
+    <div class="mb-3"><label asp-for="ServiceLevel" class="form-label"></label>
+        <input asp-for="ServiceLevel" class="form-control" /></div>
+    <div class="mb-3"><label class="form-label">Signed Agreement (PDF)</label>
+        <input type="file" name="agreement" accept=".pdf" class="form-control" /></div>
+
+    <button class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

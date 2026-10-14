@@ -1,0 +1,67 @@
+@model GLMS.Web.ViewModels.ServiceRequestCreateViewModel
+@{ ViewData["Title"] = "New Service Request"; }
+
+<h2>New Service Request</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="ContractId" class="form-label"></label>
+        <select asp-for="ContractId" asp-items="Model.Contracts" class="form-select">
+            <option value="">-- select contract --</option>
+        </select>
+        <span asp-validation-for="ContractId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CostInUSD" class="form-label"></label>
+        <input asp-for="CostInUSD" id="usdInput" class="form-control" type="number" step="0.01" min="0.01" />
+        <span asp-validation-for="CostInUSD" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Cost (ZAR), auto-calculated</label>
+        <input id="zarOutput" class="form-control" readonly />
+        <small id="rateInfo" class="text-muted"></small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const usd = document.getElementById('usdInput');
+        const zar = document.getElementById('zarOutput');
+        const info = document.getElementById('rateInfo');
+        let timer;
+
+        usd.addEventListener('input', () => {
+            clearTimeout(timer);
+            timer = setTimeout(convert, 300); // debounce
+        });
+
+        async function convert() {
+            const value = parseFloat(usd.value);
+            if (isNaN(value) || value < 0) { zar.value = ''; info.textContent = ''; return; }
+            try {
+                const res = await fetch(`@Url.Action("Convert", "ServiceRequests")?usd=${value}`);
+                if (!res.ok) throw new Error();
+                const data = await res.json();
+                zar.value = 'R ' + data.zar.toLocaleString('en-ZA', { minimumFractionDigits: 2 });
+                info.textContent = `Rate: 1 USD = ${data.rate} ZAR` + (data.isFallback ? ' (fallback rate, live API unavailable)' : '');
+            } catch {
+                zar.value = '';
+                info.textContent = 'Could not calculate the ZAR amount.';
+            }
+        }
+    </script>
+}

@@ -1,0 +1,8 @@
+@model GLMS.Web.Models.Client
+@{ ViewData["Title"] = "Client details"; }
+<div class="d-flex justify-content-between align-items-start mb-4"><div><a asp-action="Index" class="text-decoration-none">← Back to clients</a><h1 class="h2 mt-2">@Model.Name</h1><p class="text-muted mb-0">Client details and related contracts</p></div><a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit client</a></div>
+<div class="panel-card mb-4"><dl class="row mb-0"><dt class="col-sm-3">Client ID</dt><dd class="col-sm-9">@Model.Id</dd><dt class="col-sm-3">Contact details</dt><dd class="col-sm-9">@Model.ContactDetails</dd><dt class="col-sm-3">Region</dt><dd class="col-sm-9">@Model.Region</dd><dt class="col-sm-3">Number of contracts</dt><dd class="col-sm-9">@Model.Contracts.Count</dd></dl></div>
+<div class="panel-card"><h2 class="h5 mb-3">Related contracts</h2>
+@if (!Model.Contracts.Any()) { <p class="text-muted mb-0">No contracts are linked to this client yet.</p> }
+else { <div class="table-responsive"><table class="table"><thead><tr><th>Contract ID</th><th>Service level</th><th>Start date</th><th>End date</th><th>Status</th></tr></thead><tbody>@foreach (var contract in Model.Contracts.OrderBy(c => c.Id)) { <tr><td>@contract.Id</td><td>@contract.ServiceLevel</td><td>@contract.StartDate.ToString("dd MMM yyyy")</td><td>@contract.EndDate.ToString("dd MMM yyyy")</td><td>@contract.Status</td></tr> }</tbody></table></div> }
+</div>

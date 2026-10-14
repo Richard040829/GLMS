@@ -1,0 +1,21 @@
+@model IEnumerable<GLMS.Web.Models.ServiceRequest>
+@{ ViewData["Title"] = "Service Requests"; }
+
+<h2>Service Requests</h2>
+@if (TempData["Success"] is string ok) { <div class="alert alert-success">@ok</div> }
+<a asp-action="Create" class="btn btn-primary mb-3">New Request</a>
+<table class="table table-striped">
+    <thead><tr><th>Contract</th><th>Description</th><th>USD</th><th>ZAR</th><th>Status</th></tr></thead>
+    <tbody>
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>#@s.ContractId (@s.Contract?.Client?.Name)</td>
+            <td>@s.Description</td>
+            <td>@s.CostInUSD.ToString("N2")</td>
+            <td>@s.CostInZAR.ToString("N2")</td>
+            <td>@s.Status</td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,5 @@
+@model GLMS.Web.Models.Client
+<div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+<div class="mb-3"><label asp-for="Name" class="form-label"></label><input asp-for="Name" class="form-control" placeholder="e.g. Acme Freight" /><span asp-validation-for="Name" class="text-danger"></span></div>
+<div class="mb-3"><label asp-for="ContactDetails" class="form-label"></label><input asp-for="ContactDetails" class="form-control" placeholder="Email address and/or phone number" /><div class="form-text">Enter a business email address, phone number, or both.</div><span asp-validation-for="ContactDetails" class="text-danger"></span></div>
+<div class="mb-3"><label asp-for="Region" class="form-label"></label><input asp-for="Region" class="form-control" placeholder="e.g. Southern Africa" /><span asp-validation-for="Region" class="text-danger"></span></div>

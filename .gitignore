@@ -1,0 +1,8 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+TestResults/
+GLMS.Web/wwwroot/uploads/contracts/*
+!GLMS.Web/wwwroot/uploads/contracts/.gitkeep

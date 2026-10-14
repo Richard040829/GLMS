@@ -1,0 +1,10 @@
+@model GLMS.Web.Models.Client
+@{ ViewData["Title"] = "Add client"; }
+<div class="mb-4"><a asp-action="Index" class="text-decoration-none">← Back to clients</a><h1 class="h2 mt-2">Add a client</h1><p class="text-muted">Enter the client details below to register a new client.</p></div>
+<div class="panel-card" style="max-width:760px">
+    <form asp-action="Create" method="post">
+        <partial name="_ClientForm" model="Model" />
+        <div class="d-flex gap-2 mt-4"><button type="submit" class="btn btn-primary">Save client</button><a asp-action="Index" class="btn btn-outline-secondary">Cancel</a></div>
+    </form>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -1,0 +1,21 @@
+:root { --glms-ink: #14263d; --glms-blue: #1e5b91; --glms-pale: #eef4fa; }
+body { background: #f5f7fa; color: #233247; }
+.navbar { box-shadow: 0 3px 14px rgba(10, 28, 48, .14); }
+.navbar-brand { font-weight: 800; letter-spacing: .02em; }
+.dashboard-hero { color: #fff; background: linear-gradient(125deg, #14263d 0%, #1e5b91 68%, #267e9c 100%); box-shadow: 0 14px 35px rgba(22, 56, 88, .16); }
+.eyebrow { font-size: .75rem; letter-spacing: .18em; font-weight: 800; opacity: .78; }
+.hero-symbol { display: inline-flex; align-items: center; justify-content: center; width: 165px; height: 165px; border: 1px solid rgba(255,255,255,.35); border-radius: 36px; transform: rotate(-7deg); font-size: 2.2rem; font-weight: 900; letter-spacing: .12em; background: rgba(255,255,255,.08); }
+.metric-card, .panel-card { background: #fff; border: 1px solid #e5ebf1; border-radius: 16px; padding: 1.25rem; box-shadow: 0 6px 22px rgba(24, 47, 71, .045); }
+.metric-label { color: #6b7b8e; font-size: .83rem; font-weight: 700; }
+.metric-value { color: var(--glms-ink); font-size: clamp(1.6rem, 3vw, 2.15rem); font-weight: 800; letter-spacing: -.035em; margin: .35rem 0; }
+.metric-foot { color: #8996a5; font-size: .78rem; }
+.quick-link { display: flex; gap: .8rem; align-items: center; padding: .85rem 0; text-decoration: none; color: inherit; border-bottom: 1px solid #edf0f4; }
+.quick-link:last-child { border-bottom: 0; padding-bottom: 0; }
+.quick-link:hover strong { color: var(--glms-blue); }
+.quick-link small { display: block; color: #7a8796; font-size: .76rem; margin-top: .15rem; }
+.quick-icon { display: grid; place-items: center; flex: 0 0 38px; height: 38px; border-radius: 11px; background: var(--glms-pale); color: var(--glms-blue); font-weight: 800; font-size: .75rem; }
+.status-pill { display: inline-block; border-radius: 99px; background: #edf4fb; color: #275b86; padding: .25rem .6rem; font-size: .75rem; font-weight: 700; }
+.request-description { max-width: 210px; }
+.empty-state { background: #f7f9fb; border: 1px dashed #d7e0e8; border-radius: 12px; padding: 1.5rem; color: #68788a; }
+.finance-card { background: linear-gradient(135deg, #fff, #f0f7fc); }
+.table thead th { color: #738195; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 800; border-bottom-color: #e8edf2; }

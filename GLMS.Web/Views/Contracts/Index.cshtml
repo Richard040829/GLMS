@@ -1,0 +1,47 @@
+@model IEnumerable<GLMS.Web.Models.Contract>
+@{ ViewData["Title"] = "Contracts"; }
+
+<h2>Contracts</h2>
+@if (TempData["Success"] is string ok) { <div class="alert alert-success">@ok</div> }
+@if (TempData["Error"] is string err) { <div class="alert alert-danger">@err</div> }
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-auto"><input type="date" name="from" value="@ViewBag.From" class="form-control" title="Start on/after" /></div>
+    <div class="col-auto"><input type="date" name="to" value="@ViewBag.To" class="form-control" title="End on/before" /></div>
+    <div class="col-auto">
+        <select name="status" asp-items="ViewBag.StatusList" class="form-select"><option value="">All statuses</option></select>
+    </div>
+    <div class="col-auto"><button class="btn btn-outline-primary">Filter</button></div>
+    <div class="col-auto"><a asp-action="Index" class="btn btn-outline-secondary">Clear</a></div>
+    <div class="col-auto"><a asp-action="Create" class="btn btn-primary">New Contract</a></div>
+</form>
+
+<table class="table table-striped align-middle">
+    <thead><tr><th>Client</th><th>Start</th><th>End</th><th>Status</th><th>SLA</th><th>Agreement</th></tr></thead>
+    <tbody>
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.Client?.Name</td>
+            <td>@c.StartDate.ToString("yyyy-MM-dd")</td>
+            <td>@c.EndDate.ToString("yyyy-MM-dd")</td>
+            <td>@c.Status</td>
+            <td>@c.ServiceLevel</td>
+            <td>
+                @if (!string.IsNullOrEmpty(c.SignedAgreementPath))
+                {
+                    <a asp-action="Download" asp-route-id="@c.Id">Download PDF</a>
+                }
+                else
+                {
+                    <form asp-action="UploadAgreement" method="post" enctype="multipart/form-data" class="d-flex gap-1">
+                        <input type="hidden" name="id" value="@c.Id" />
+                        <input type="file" name="agreement" accept=".pdf" class="form-control form-control-sm" required />
+                        <button class="btn btn-sm btn-secondary">Upload</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
